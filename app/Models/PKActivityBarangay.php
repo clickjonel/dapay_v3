@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Model;
 
-#[Table("pk_activities")]
+#[Table("pk_activity_barangays")]
 #[Fillable([
-    'date_start',
-    'date_end',
-    'activity_name',
-    'type',
-    'total_clients',
-    'submitted_by',
+    'pk_activity_id',
+    'barangay_id',
+    'host',
 ])]
-class PKActivity extends Model
+class PKActivityBarangay extends Model
 {
-    
+    //
 }

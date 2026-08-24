@@ -26,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pk_activity_id')->constrained('pk_activities','id');
             $table->foreignId('barangay_id')->constrained('barangays','id');
-            $table->boolean('host');
+            $table->boolean('host')->nullable();
             $table->timestamps();
         });
 
@@ -34,6 +34,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pk_activity_id')->constrained('pk_activities','id');
             $table->foreignId('program_id')->constrained('programs','id');
+            $table->timestamps();
+        });
+
+        Schema::create('pk_activity_hrh', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pk_activity_id')->constrained('pk_activities','id');
+            $table->foreignId('user_id')->constrained('users','id');
             $table->timestamps();
         });
     }
