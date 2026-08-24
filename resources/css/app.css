@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import 'tailwindcss';
+@import 'vue-multiselect/dist/vue-multiselect.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme inline {
+    --font-sans:
+        Barlow, ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+}
+
+/* app.css */
+.custom-multiselect .multiselect__tags {
+    border: 1px solid #d6d3d1;
+    border-radius: 0;
+    min-height: 40px;
+    padding: 8px 40px 0 8px;
+    font-size: 14px;
+    transition: border-color 0.15s ease;
+}
+
+.custom-multiselect.multiselect--active .multiselect__tags {
+    border-color: #3F4E2E;
+}
+
+.custom-multiselect .multiselect__tag {
+    background: #3F4E2E;
+    border-radius: 0;
+    margin-bottom: 6px;
+    padding: 4px 26px 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.custom-multiselect .multiselect__tag-icon::after {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.custom-multiselect .multiselect__tag-icon:hover {
+    background: #2d3a20;
+}
+
+.custom-multiselect .multiselect__tag-icon:hover::after {
+    color: white;
+}
+
+.custom-multiselect .multiselect__select {
+    height: 40px;
+}
+
+.custom-multiselect .multiselect__select::before {
+    border-color: #78716c transparent transparent;
+}
+
+.custom-multiselect .multiselect__placeholder {
+    color: #a8a29e;
+    font-size: 14px;
+    padding-top: 2px;
+}
+
+.custom-multiselect .multiselect__input,
+.custom-multiselect .multiselect__single {
+    font-size: 14px;
+    padding-left: 0;
+    margin-bottom: 6px;
+}
+
+.custom-multiselect .multiselect__content-wrapper {
+    border: 1px solid #d6d3d1;
+    border-radius: 0;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+.custom-multiselect .multiselect__option {
+    font-size: 14px;
+    padding: 10px 12px;
+}
+
+.custom-multiselect .multiselect__option--highlight,
+.custom-multiselect .multiselect__option--highlight::after {
+    background: #3F4E2E;
+}
+
+.custom-multiselect .multiselect__option--selected {
+    background: #f0f4ed;
+    color: #3F4E2E;
+    font-weight: 600;
+}
+
+.custom-multiselect .multiselect__option--selected.multiselect__option--highlight,
+.custom-multiselect .multiselect__option--selected.multiselect__option--highlight::after {
+    background: #dc2626;
+}
