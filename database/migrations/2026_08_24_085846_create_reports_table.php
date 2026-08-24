@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('remarks');
             $table->string('status')->nullable();
             $table->string('action_by');
+            // $table->foreignId('pk_activity_id')->nullable();
             $table->timestamps();
         });
 
