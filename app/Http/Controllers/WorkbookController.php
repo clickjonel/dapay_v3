@@ -86,4 +86,8 @@ class WorkbookController extends Controller
             'provinces' => $provinces,
         ]);
     }
+
+    public function primaryCareIndicators(){
+        
+    }
 }
