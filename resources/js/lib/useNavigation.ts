@@ -23,6 +23,8 @@ export const navigationGroups: NavGroup[] = [
         children: [
             { name: 'Primary Health Care Indicators', route: '#' },
             { name: 'Barangay Indicators', route: '#' },
+            { name: '4Ps Report', route: '/workbook/4ps' },
+            { name: 'Total Clients Served', route: '/workbook/total-clients-served' },
         ],
     },
     {

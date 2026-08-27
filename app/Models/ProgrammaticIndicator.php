@@ -16,4 +16,8 @@ class ProgrammaticIndicator extends Model
             'disaggregation_id'
         )->withPivot(['totalable','id']);
     }
+
+    public function program(){
+        return $this->belongsTo(ProgrammaticIndicator::class,'program_id','id');
+    }
 }

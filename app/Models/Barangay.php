@@ -57,4 +57,9 @@ class Barangay extends Model
             'program_id'
         )->withPivot(['id','target','order']);
     }
+
+    public function reports(){
+        return $this->hasMany(Report::class);
+    }
+
 }

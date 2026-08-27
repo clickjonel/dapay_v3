@@ -4,10 +4,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangayController;
 use App\Http\Controllers\DisaggregationController;
 use App\Http\Controllers\OrganizationalIndicatorController;
+use App\Http\Controllers\PKActivityController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgrammaticIndicatorController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkbookController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Welcome')->name('home');
@@ -82,5 +84,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/teams/members/{id}/delete',[TeamController::class, 'deleteMember']);
     Route::put('/teams/members/{id}/update',[TeamController::class, 'updateMember']);
 
+    // pk activity routes
+    Route::get('/pk-activities',[PKActivityController::class, 'index']);
+    Route::get('/pk-activities/{id}/edit',[PKActivityController::class, 'edit']);
+    Route::put('/pk-activities/{id}/update',[PKActivityController::class, 'update']);
+    Route::get('/pk-activities/{id}/programs/manage',[PKActivityController::class, 'managePrograms']);
+    Route::get('/pk-activities/{id}/barangays/manage',[PKActivityController::class, 'manageBarangays']);
+    Route::get('/pk-activities/{id}/hrh/manage',[PKActivityController::class, 'manageHRH']);
+    Route::post('/pk-activities/{activityID}/programs/add/{programID}',[PKActivityController::class, 'addProgram']);
+    Route::delete('/pk-activities/programs/delete/{activityProgramID}',[PKActivityController::class, 'removeProgram']);
+    Route::post('/pk-activities/{activityID}/barangays/add/{barangayID}',[PKActivityController::class, 'addBarangay']);
+    Route::delete('/pk-activities/barangays/delete/{activityBarangayID}',[PKActivityController::class, 'removeBarangay']);
+    Route::post('/pk-activities/{activityID}/hrh/add/{userID}',[PKActivityController::class, 'addHRH']);
+    Route::delete('/pk-activities/hrh/delete/{activityUserID}',[PKActivityController::class, 'removeHRH']);
+    Route::get('/pk-activities/{id}/report/create',[PKActivityController::class, 'createReport']);
+    Route::post('/pk-activities/report/create',[PKActivityController::class, 'storeReport']);
+    Route::get('/pk-activities/{id}/view',[PKActivityController::class, 'viewPKActivity']);
+    Route::get('/pk-activities/report/{id}/edit',[PKActivityController::class, 'editReport']);
+    Route::put('/pk-activities/report/{id}/update',[PKActivityController::class, 'updateReport']);
+    Route::put('/pk-activities/report/{id}/resubmit',[PKActivityController::class, 'resubmitReport']);
+
+    //workbook routes
+    Route::get('/workbook/4ps',[WorkbookController::class, 'fourPSWorkbook']);
+    Route::get('/workbook/total-clients-served',[WorkbookController::class, 'totalClientsServed']);
 
 });

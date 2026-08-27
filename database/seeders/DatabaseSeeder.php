@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
             BarangayPriorityProgramSeeder::class,
             TeamSeeder::class,
             TeamMemberSeeder::class,
-            PKActivitySeeder::class
+            PKActivitySeeder::class,
+            ReportSeeder::class,
        ]);
     }
 }

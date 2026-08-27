@@ -13,5 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class ReportValue extends Model
 {
-    //
+    public function disaggregations(){
+        return $this->hasMany(ReportValueDisaggregation::class,'report_value_id','id');
+    }
+
+    public function indicator(){
+        return $this->belongsTo(ProgrammaticIndicator::class,'indicator_id','id');
+    }
 }

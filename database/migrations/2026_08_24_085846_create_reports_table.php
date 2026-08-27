@@ -17,10 +17,10 @@ return new class extends Migration
             $table->integer('total_clients');
             $table->integer('total_returning_clients');
             $table->foreignId('barangay_id')->constrained('barangays','id');
-            $table->string('remarks');
+            $table->text('remarks')->nullable();
             $table->string('status')->nullable();
-            $table->string('action_by');
-            // $table->foreignId('pk_activity_id')->nullable();
+            $table->string('action_by')->nullable();
+            $table->foreignId('pk_activity_id')->nullable();
             $table->timestamps();
         });
 
@@ -38,6 +38,13 @@ return new class extends Migration
             $table->foreignId('report_value_id')->constrained('report_values','id');
             $table->foreignId('disaggregation_id')->constrained('disaggregations','id');
             $table->integer('value');
+            $table->timestamps();
+        });
+
+        Schema::create('report_users', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('report_id')->constrained('report_values','id');
+            $table->foreignId('user_id')->constrained('users','id');
             $table->timestamps();
         });
     }

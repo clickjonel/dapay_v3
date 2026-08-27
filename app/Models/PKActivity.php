@@ -17,5 +17,38 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class PKActivity extends Model
 {
-    
+    public function hrh(){
+        return $this->belongsToMany(
+            User::class,
+            'pk_activity_hrh',
+            'pk_activity_id',
+            'user_id'
+        )->withPivot(['id']);
+    }
+
+    public function barangays(){
+        return $this->belongsToMany(
+            Barangay::class,
+            'pk_activity_barangays',
+            'pk_activity_id',
+            'barangay_id'
+        )->withPivot(['id']);
+    }
+
+    public function programs(){
+        return $this->belongsToMany(
+            Program::class,
+            'pk_activity_programs',
+            'pk_activity_id',
+            'program_id'
+        )->withPivot(['id']);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'pk_activity_id');
+    }
+
+
+
 }

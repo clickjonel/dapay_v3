@@ -12,5 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 ])]
 class ReportValueDisaggregation extends Model
 {
-    //
+    public function disaggregation(){
+        return $this->belongsTo(Disaggregation::class,'disaggregation_id','id');
+    }
 }
