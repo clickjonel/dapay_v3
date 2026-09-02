@@ -106,6 +106,7 @@
                         Search
                     </button>
                 </div>
+                <button @click="create" class="p-2 md:py-2 md:px-4 border bg-[#3F4E2E] text-white text-sm md:text-base cursor-pointer hover:bg-green-900 shadow-md">Add New</button>
             </div>
         </section>
 

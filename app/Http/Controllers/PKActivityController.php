@@ -21,11 +21,29 @@ class PKActivityController extends Controller
 {
     public function index(Request $request){
         $searchKeyword = $request->search;
+        $user = $request->user();
 
         $activities = PKActivity::query()
-           // ->with(['hrh', 'barangays', 'programs'])
             ->when($searchKeyword, function ($query, $keyword) {
                 $query->where('activity_name', 'like', '%' . $keyword . '%');
+            })
+            ->when($user->access_level === 2, function ($query) use($user) {
+                $query->where('submitted_by', $user->id)
+                        ->orWhereHas('hrh', function($query) use($user) {
+                            $query->where('user_id', $user->id);
+                        });
+            })
+            ->when($user->access_level === 3, function ($query) use($user) {
+                $query->whereHas('barangays', function($query) use($user) {
+                    $query->where('province_id', $user->province_id);
+                });
+                        
+            })
+            ->when($user->access_level === 4, function ($query) use($user) {
+                $query->whereHas('barangays', function($query) use($user) {
+                    $query->whereIn('municipality_id', $user->handledMunicipalities->pluck('id')->toArray());
+                });
+                        
             })
             ->withCount(['hrh', 'barangays', 'programs', 'reports'])
             ->orderBy('id', 'desc')
