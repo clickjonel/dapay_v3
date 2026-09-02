@@ -72,4 +72,22 @@ class User extends Authenticatable
         );
      }
 
+     public function handledMunicipalities(){
+        return $this->belongsToMany(
+            Municipality::class,
+            'user_handled_municipalities',
+            'user_id',
+            'municipality_id'
+        );
+     }
+
+     public function reports(){
+        return $this->belongsToMany(
+            Report::class, 
+            'report_users', 
+            'user_id', 
+            'report_id'
+        );
+     }
+
 }

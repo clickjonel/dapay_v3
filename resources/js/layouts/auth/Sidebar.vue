@@ -9,9 +9,13 @@
 
     const page = usePage();
     const currentUrl = computed(() => page.url);
+    const accessLevel = Number(page.props?.auth?.user?.access_level);
 
     const isChildActive = (route: string) => currentUrl.value === route;
     const isGroupActive = (children: { route: string }[]) => children.some((c) => isChildActive(c.route));
+    const filteredGroups = navigationGroups.filter(group => {
+        return group.accessLevels ? group.accessLevels.includes(accessLevel) : true;
+    });
 
 </script>
 
@@ -42,7 +46,7 @@
 
         <!-- Nav -->
         <nav class="flex-1 space-y-4 overflow-y-auto px-3 py-5">
-            <div v-for="group in navigationGroups" :key="group.name">
+            <div v-for="group in filteredGroups" :key="group.name">
                 <details :open="isGroupActive(group.children)" class="group/d">
                     <summary
                         class="flex h-10 w-full cursor-pointer list-none items-center  gap-3 px-3 text-[13.5px] font-semibold tracking-tight transition-colors marker:content-none [&::-webkit-details-marker]:hidden"

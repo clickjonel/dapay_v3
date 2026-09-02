@@ -14,4 +14,8 @@ class Municipality extends Model
     public function province(){
         return $this->belongsTo(Province::class);
     }
+
+    public function barangays(){
+        return $this->hasMany(Barangay::class);
+    }
 }

@@ -23,10 +23,23 @@ class Province extends Model
         return $this->hasManyThrough(Report::class, Barangay::class);
     }
 
-    public function pkActivities(){
+    public function pkActivities()
+    {
         return $this->hasManyThrough(
-            PkActivityBarangay::class,
-            Barangay::class
+            PKActivity::class,         
+            Barangay::class,            
+            'province_id',             
+            'id',                   
+            'id',      
+            'id'                
         );
     }
+
+    public function teams(){
+        return $this->hasManyThrough(
+            Team::class,
+            Barangay::class,
+        );
+    }
+    
 }

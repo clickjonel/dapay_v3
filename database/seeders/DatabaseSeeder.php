@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             TeamMemberSeeder::class,
             PKActivitySeeder::class,
             ReportSeeder::class,
+            UserHandledMunicipalitySeeder::class,
        ]);
     }
 }

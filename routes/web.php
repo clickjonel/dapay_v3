@@ -7,6 +7,7 @@ use App\Http\Controllers\OrganizationalIndicatorController;
 use App\Http\Controllers\PKActivityController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgrammaticIndicatorController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkbookController;
@@ -103,6 +104,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/pk-activities/report/{id}/edit',[PKActivityController::class, 'editReport']);
     Route::put('/pk-activities/report/{id}/update',[PKActivityController::class, 'updateReport']);
     Route::put('/pk-activities/report/{id}/resubmit',[PKActivityController::class, 'resubmitReport']);
+
+    // report routes
+    Route::post('/reports/approve',[ReportController::class,'approve']);
+    Route::post('/reports/reject',[ReportController::class,'reject']);
+    Route::post('/reports/resubmit/{id}',[ReportController::class,'resubmit']);
 
     //workbook routes
     Route::get('/workbook/4ps',[WorkbookController::class, 'fourPSWorkbook']);

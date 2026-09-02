@@ -11,6 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('user_handled_municipalities', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users','id');
+            $table->foreignId('municipality_id')->constrained('municipalities','id');
+            $table->string('dcpo_no')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('user_handled_barangays', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users','id');

@@ -62,4 +62,15 @@ class Barangay extends Model
         return $this->hasMany(Report::class);
     }
 
+    public function team(){
+        return $this->hasOne(Team::class);
+    }
+
+    public function pkActivities(){
+        return $this->belongsToMany(
+            PKActivity::class,
+            PKActivityBarangay::class,
+        );
+    }
+
 }

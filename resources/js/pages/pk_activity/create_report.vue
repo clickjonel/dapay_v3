@@ -71,7 +71,7 @@
                     total: ind.total,
                     disaggregations: ind.disaggregations.map(dis => ({
                         id: dis.id,
-                        value: dis.value,
+                        value: dis.value ?? 0,
                     })),
                 })),
                 users: data.users.map(user => user.id),

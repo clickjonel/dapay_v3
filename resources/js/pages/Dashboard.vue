@@ -1,66 +1,62 @@
 <script setup>
-import Main from '@/layouts/auth/Main.vue';
-import { Activity, RefreshCw } from '@lucide/vue';
-import { ref, onMounted } from 'vue';
-import { router } from '@inertiajs/vue3';
+    import Main from '@/layouts/auth/Main.vue';
+    import { Activity, MapPinned, FileText, Users, PackageCheck, Boxes, ClipboardList, Building2, Check, X, ChevronRight, ShieldAlert } from '@lucide/vue';
+    import { onMounted } from 'vue';
+    import { router, usePage } from '@inertiajs/vue3';
+    import { showLoader, hideLoader } from '@/composables/useLoading';
+    import AdminDashboard from '@/components/dashboard/AdminDashboard.vue';
+    import DMODashboard from '@/components/dashboard/DMODashboard.vue';
+    import HRHDashboard from '@/components/dashboard/HRHDashboard.vue';
+    import PDOHODashboard from '@/components/dashboard/PDOHODashboard.vue';
 
-defineOptions({ layout: Main });
-
-const props = defineProps({
-    admin: Object,
-    dashboardData: Object
-});
-
-const isLoading = ref(false);
-
-const loadData = () => {
-    isLoading.value = true;
-    router.get(route('dashboard'), { access_level: props.admin?.access_level }, {
-        preserveState: true,
-        only: ['dashboardData'],
-        onFinish: () => isLoading.value = false
+    defineOptions({ layout: Main });
+    const props = defineProps({
+        admin: Object,
+        dmo: Object,
+        data: Object|Array
     });
-};
 
-onMounted(() => {
-    loadData();
-});
+    const page = usePage()
+    const user = page.props?.auth?.user
+
 </script>
 
 <template>
-    <main class="min-h-screen w-full bg-stone-100 p-4">
-        <!-- Header -->
-        <header class="w-full flex items-center justify-between border border-stone-200 bg-white p-5 shadow-sm">
-            <div>
-                <h1 class="text-xl font-bold text-stone-900">Welcome Back, Administrator</h1>
-                <p class="text-xs text-stone-500">Cordillera Administrative Region · Dashboard</p>
-            </div>
+    <main class="w-full flex flex-col gap-4">
 
-            <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1.5 rounded-lg bg-stone-100 px-3 py-1.5 text-xs text-stone-600 border border-stone-200">
-                    <Activity class="size-3.5 text-[#3F4E2E]" /> Status: Operational
-                </span>
+            <!-- Header -->
+            <header class="flex flex-col gap-4 border border-stone-200/80 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                    <div class="flex items-center gap-2 text-xs font-medium text-stone-500">
+                        <MapPinned class="size-3.5 text-stone-400" />
+                        <span>Cordillera Administrative Region</span>
+                    </div>
+                    <h1 class="mt-1 text-2xl font-black">
+                        Welcome back, {{ user?.name || 'Administrator' }}
+                    </h1>
+                </div>
 
-                <!-- Simple Load Button -->
-                <button 
-                    @click="loadData" 
-                    :disabled="isLoading"
-                    class="inline-flex items-center gap-2 rounded-lg bg-[#3F4E2E] px-4 py-2 text-xs font-medium text-white hover:bg-[#323f25] disabled:opacity-50"
-                >
-                    <RefreshCw class="size-3.5" :class="{ 'animate-spin': isLoading }" />
-                    <span>{{ isLoading ? 'Loading...' : 'Load Data' }}</span>
-                </button>
-            </div>
-        </header>
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center gap-2 border border-emerald-200 bg-emerald-50/80 px-3 py-1 text-xs font-medium text-emerald-800">
+                        <span class="relative flex size-2">
+                          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                          <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+                        </span>
+                        System Operational
+                    </span>
+                </div>
+            </header>
 
-        <!-- Data Section -->
-        <div class="mt-4">
-            <div v-if="dashboardData" class="p-4 bg-white border border-stone-200 rounded">
-                <pre class="text-xs">{{ dashboardData }}</pre>
-            </div>
-            <div v-else class="p-4 bg-white border border-stone-200 rounded text-xs text-stone-500">
-                Loading data...
-            </div>
-        </div>
+            <!-- Admin Side -->
+            <AdminDashboard v-if="user.access_level === 1" :data="props.data" />
+
+            <!-- HRH Side -->
+            <HRHDashboard v-else-if="user.access_level === 2" :data="props.data"/>
+
+            <!-- C/PDOHO Side -->
+            <PDOHODashboard v-else-if="user.access_level === 3" :data="props.data"/>
+
+            <!-- DMO Side -->
+            <DMODashboard v-else="user.access_level === 4"  :data="props.data"/>
     </main>
 </template>

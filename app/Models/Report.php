@@ -40,4 +40,8 @@ class Report extends Model
         return $this->belongsTo(User::class, 'action_by');
     }
 
+    public function pkActivity(){
+        return $this->belongsTo(PKActivity::class);
+    }
+
 }
