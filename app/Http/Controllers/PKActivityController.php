@@ -14,11 +14,22 @@ use App\Models\ReportUser;
 use App\Models\ReportValue;
 use App\Models\ReportValueDisaggregation;
 use App\Models\User;
+use App\Services\BarangayService;
+use App\Services\ProgramService;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PKActivityController extends Controller
 {
+
+    public function __construct(
+        protected BarangayService $barangayService,
+        protected ProgramService $programService,
+        protected UserService $userService,
+
+    ) {}
+
     public function index(Request $request){
         $searchKeyword = $request->search;
         $user = $request->user();
@@ -54,6 +65,64 @@ class PKActivityController extends Controller
             'list' => $activities,
             'filters' => $request->only(['search']),
         ]);
+    }
+
+    public function create(Request $request){
+        $user = $request->user();
+
+        $barangays = $this->barangayService->getBarangaySelection($user->access_level, $user->province_id);
+        $programs = $this->programService->getProgramSelection();
+        $hrh = $this->userService->getHrhSelection($user->access_level, $user->province_id);
+
+        return inertia('pk_activity/create',[
+            'barangays' => $barangays,
+            'programs'=> $programs,
+            'hrh'=> $hrh,
+        ]);
+    }
+
+    public function store(Request $request){
+        $validated = $request->validate([
+            'activity_name'=> 'required|string',
+            'date_start'=> 'required|date',
+            'date_end'=> 'required|date',
+            'type'=> 'required|string',
+            'total_clients'=> 'required|numeric',
+            'barangays'=> 'required|array',
+            'hrh'=> 'required|array',
+            'programs'=> 'required|array',
+        ]);
+
+        $pkActivityCreated = PKActivity::create([
+            'activity_name'=> $validated['activity_name'],
+            'date_start'=> $validated['date_start'],
+            'date_end'=> $validated['date_end'],
+            'type'=> $validated['type'],
+            'total_clients'=> $validated['total_clients'],
+        ]);
+
+        foreach($validated['barangays'] as $brgy){
+            PKActivityBarangay::create([
+                'barangay_id'=> $brgy,
+                'pk_activity_id'=> $pkActivityCreated->id,
+            ]);
+        }
+
+        foreach($validated['hrh'] as $hrh){
+            PKActivityHRH::create([
+                'user_id'=> $hrh,
+                'pk_activity_id'=> $pkActivityCreated->id,
+            ]);
+        }
+
+        foreach($validated['programs'] as $program){
+            PKActivityProgram::create([
+                'program_id'=> $program,
+                'pk_activity_id'=> $pkActivityCreated->id,
+            ]);
+        }
+
+        return back();
     }
 
     public function edit(string $id){
@@ -278,7 +347,8 @@ class PKActivityController extends Controller
             'hrh', 
             'barangays.municipality.province',
             'programs',
-            'reports.actionBy'
+            'reports.actionBy',
+            'reports.users'
         ]);
 
         return inertia('pk_activity/view_pk_activity',[

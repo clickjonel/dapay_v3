@@ -2,6 +2,7 @@
 import { ClipboardList, Check, X, Building2, MessageSquare } from '@lucide/vue';
 import { ref, computed } from 'vue';
 import { router } from '@inertiajs/vue3';
+import { notifySuccess } from '@/composables/useNotify';
 
 const props = defineProps({
     data: {
@@ -46,8 +47,10 @@ function approve() {
         onSuccess: () => {
             selectedReports.value = [];
             remarks.value = '';
+            notifySuccess('Approved Reports')
         },
     });
+    // console.log(selectedReports.value)
 }
 
 function reject() {

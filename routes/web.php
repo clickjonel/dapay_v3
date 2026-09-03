@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
 
     // pk activity routes
     Route::get('/pk-activities',[PKActivityController::class, 'index']);
+    Route::get('/pk-activities/create',[PKActivityController::class, 'create']);
+    Route::post('/pk-activities/store',[PKActivityController::class, 'store']);
     Route::get('/pk-activities/{id}/edit',[PKActivityController::class, 'edit']);
     Route::put('/pk-activities/{id}/update',[PKActivityController::class, 'update']);
     Route::get('/pk-activities/{id}/programs/manage',[PKActivityController::class, 'managePrograms']);

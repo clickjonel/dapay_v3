@@ -82,9 +82,9 @@ class AuthController extends Controller
                     'reports' => Report::query()
                         ->whereNull('status')
                         ->whereHas('barangay', fn ($q) => $q->where('province_id', $user->province_id))
-                        ->with(['users:id,name', 'barangay:id,name', 'pkActivity:id,name'])
+                        ->with(['users:id,name', 'barangay:id,name', 'pkActivity:id,activity_name'])
                         ->latest()
-                        ->take(10)
+                        // ->take(50)
                         ->get(),
                     'municipalities' => $user->handledMunicipalities,
                 ];

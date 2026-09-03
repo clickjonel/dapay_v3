@@ -19,6 +19,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->foreignId('province_id')->nullable()->constrained('provinces','id');
             $table->smallInteger('access_level');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
 

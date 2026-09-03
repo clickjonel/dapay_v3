@@ -72,6 +72,10 @@
         return date ? dayjs(date).format('MMM D, YYYY') : '—';
     }
 
+    function create(){
+        router.visit('/pk-activities/create')
+    }
+
     onMounted(()=>{
         console.log(props.list.data)
     })
@@ -106,7 +110,13 @@
                         Search
                     </button>
                 </div>
-                <button @click="create" class="p-2 md:py-2 md:px-4 border bg-[#3F4E2E] text-white text-sm md:text-base cursor-pointer hover:bg-green-900 shadow-md">Add New</button>
+
+                <button
+                    @click="create"
+                    class="h-9 px-4 bg-[#3F4E2E] text-white text-xs font-semibold uppercase tracking-wide shadow-sm hover:shadow-md hover:bg-[#334126] active:shadow-none cursor-pointer transition-all shrink-0"
+                >
+                    Create PK Activity
+                </button>
             </div>
         </section>
 

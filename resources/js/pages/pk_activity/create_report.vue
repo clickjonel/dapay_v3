@@ -82,6 +82,7 @@
             },
             onSuccess: () => {
                 notifySuccess('Store Successfull')
+                form.reset()
             },
             onError: (error) => {
                 notifyError('Something went wrong, Please try again or contact adminitrator.')

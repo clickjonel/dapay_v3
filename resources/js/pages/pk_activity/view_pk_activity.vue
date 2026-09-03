@@ -229,7 +229,7 @@
                     </div>
 
                     <!-- stat row -->
-                    <div class="w-full grid grid-cols-2 sm:grid-cols-4 gap-3 bg-stone-50 border border-stone-200 px-3 py-2.5">
+                    <div class="w-full grid grid-cols-2 sm:grid-cols-5 gap-3 bg-stone-50 border border-stone-200 px-3 py-2.5">
                         <div class="flex flex-col gap-0.5">
                             <span class="text-[10px] font-medium uppercase tracking-wide text-stone-400">Barangay</span>
                             <span class="inline-flex items-center gap-1 text-xs font-medium text-stone-700">
@@ -244,6 +244,10 @@
                         <div class="flex flex-col gap-0.5">
                             <span class="text-[10px] font-medium uppercase tracking-wide text-stone-400">Returning Clients</span>
                             <span class="text-xs font-medium text-stone-700">{{ rep.total_returning_clients }}</span>
+                        </div>
+                        <div class="flex flex-col gap-0.5">
+                            <span class="text-[10px] font-medium uppercase tracking-wide text-stone-400 wrap-break-word">Submitted By By</span>
+                            <span class="text-xs font-medium text-stone-700" v-for="user in rep.users">{{ user.name }}</span>
                         </div>
                         <div class="flex flex-col gap-0.5">
                             <span class="text-[10px] font-medium uppercase tracking-wide text-stone-400 wrap-break-word">Approved/Rejected/Resubmitted By</span>
